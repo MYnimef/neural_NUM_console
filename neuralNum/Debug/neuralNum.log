@@ -1,0 +1,5 @@
+﻿  learning.cpp
+  weights.cpp
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\weights.cpp(9,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Создание кода...
+  neuralNum.vcxproj -> A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\Debug\neuralNum.exe
