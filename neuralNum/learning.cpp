@@ -1,7 +1,7 @@
 #include <iostream>
 
-void random_weights(const int n, double w1[], double w2[], double w3[]);
-void set_weights(const int n, double w1[], double w2[], double w3[]);
+void random_weights(int n, int m, double** w);
+void set_weights(int n, int m, double** w);
 double sigmoidFunction(double x);
 void forwardPropagation(int size_of_firstLayer, double firstLayer[], double** weights, int size_of_secondLayer, double* secondLayer);
 
@@ -41,7 +41,8 @@ void neural_learning()
         w_output[count] = new double[1];
     }
 
-    random_weights(n, w_input[0], w_input[1], w_output[0]);    //Придание им рандомных значений
+    random_weights(in, n, w_input);    //Придание им рандомных значений
+    random_weights(n, 1, w_output);
 
     int maxEpoch = 100000; //Кол-во Эпох
     int delta_load = maxEpoch / 10, loading = delta_load;   //Переменные для реализации "загрузки"
@@ -87,7 +88,8 @@ void neural_learning()
         }
     }
     cout << endl;
-    set_weights(n, w_input[0], w_input[1], w_output[0]);
+    set_weights(in, n, w_input);
+    set_weights(n, 1, w_output);
 
     for (int count = 0; count < in; count++)
     {
