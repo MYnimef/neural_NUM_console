@@ -3,7 +3,7 @@
 #include <fstream>
 #include "ohMy.cpp"
 
-void neural_learning();
+void neural_learning(int trainSet, int input_col, double** input, int output_col, double** output);
 double sigmoidFunction(double x);
 void get_weights(const int n, double w1[], double w2[], double w3[]);
 
@@ -20,7 +20,42 @@ int main()
         ifstream file_w("weights.txt");
         if (!file_w.is_open())  //Если файл не открыт
         {
-            neural_learning();
+            int trainSet = 4;
+            int input_col = 2;
+            int output_col = 1;
+
+            double** input = new double* [trainSet];
+            for (int count = 0; count < trainSet; count++)
+            {
+                input[count] = new double[input_col];
+            }
+
+            double** output = new double* [trainSet];
+            for (int count = 0; count < trainSet; count++)
+            {
+                output[count] = new double[output_col];
+            }
+
+            input[0][0] = 0; input[0][1] = 0;
+            input[1][0] = 0; input[1][1] = 1;
+            input[2][0] = 1; input[2][1] = 0;
+            input[3][0] = 1; input[3][1] = 1;
+
+            output[0][0] = 0;
+            output[1][0] = 1;
+            output[2][0] = 1;
+            output[3][0] = 0;
+
+            neural_learning(trainSet, input_col, input, output_col, output);
+
+            for (int count = 0; count < trainSet; count++)
+            {
+                delete[] input[count];
+            }
+            for (int count = 0; count < trainSet; count++)
+            {
+                delete[] output[count];
+            }
         }
         else
         {

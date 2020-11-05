@@ -8,30 +8,14 @@ void backwardPropagation(int size_of_firstLayer, double firstLayer[], double** w
 
 using namespace std;
 
-void neural_learning()
+void neural_learning(int trainSet, int input_col, double** input, int output_col, double** output)
 {
     const int in = 2;   //Кол-во нейронов на входе
-    const int trainSet = 4; //Кол-во тренировочных сетов
     const int n = 5;    //Кол-во нейронов в скрытом слое
     double k = 0.3;  //Коэффициент
 
-    double input[trainSet][in] =   //Значения на входе
-    {
-        {0, 0},
-        {0, 1},
-        {1, 0},
-        {1, 1}
-    };
-    int output[trainSet] =  //Ожидаемый результат работы на данных наборах на входе (XOR)
-    {
-        0,
-        1,
-        1,
-        0
-    };
-
-    double** w_input = new double* [in];
-    for (int count = 0; count < in; count++)
+    double** w_input = new double* [input_col];
+    for (int count = 0; count < input_col; count++)
     {
         w_input[count] = new double [n];
     }
@@ -39,11 +23,11 @@ void neural_learning()
     double** w_output = new double* [n];
     for (int count = 0; count < n; count++)
     {
-        w_output[count] = new double[1];
+        w_output[count] = new double[output_col];
     }
 
-    random_weights(in, n, w_input);    //Придание им рандомных значений
-    random_weights(n, 1, w_output);
+    random_weights(input_col, n, w_input);    //Придание им рандомных значений
+    random_weights(n, output_col, w_output);
 
     int maxEpoch = 100000; //Кол-во Эпох
     int delta_load = maxEpoch / 10, loading = delta_load;   //Переменные для реализации "загрузки"
@@ -67,7 +51,7 @@ void neural_learning()
             //Backward
 
             double sigma_out[1];
-            sigma_out[0] = (output[train] - result[0]) * result[0] * (1 - result[0]);     //Погрешность суммы до выхода, использование производной функции преобразования
+            sigma_out[0] = (output[train][0] - result[0]) * result[0] * (1 - result[0]);     //Погрешность суммы до выхода, использование производной функции преобразования
             double sigma_in[n];
             backwardPropagation(n, hiddenLayer, w_output, 1, sigma_out, sigma_in);
 
@@ -87,38 +71,13 @@ void neural_learning()
                     w_input[i][j] += delta_w[i][j];
                 }
             }
-
-            /*
-
-            double sigma_out = (output[train] - result[0]) * result[0] * (1 - result[0]);     //Погрешность суммы до выхода, использование производной функции преобразования
-            double delta_w_output[n], sigma_in[n];
-            for (int i = 0; i < n; i++)
-            {
-                delta_w_output[i] = k * sigma_out * hiddenLayer[i];
-                sigma_in[i] = delta_w_output[i] * w_output[i][0] * hiddenLayer[i] * (1 - hiddenLayer[i]);        //Тут все еще ведутся
-                //sigma_in[i] = (output[train] - result) * w_output[i] * hiddenLayer[i] * (1 - hiddenLayer[i]);   //дискуссии
-
-                w_output[i][0] += delta_w_output[i];
-            }
-
-            double delta_w[in][n];
-            for (int i = 0; i < in; i++)
-            {
-                for (int j = 0; j < n; j++)
-                {
-                    delta_w[i][j] = k * sigma_in[j] * input[train][i];
-                    w_input[i][j] += delta_w[i][j];
-                }
-            }
-
-            */
         }
     }
     cout << endl;
     set_weights(in, n, w_input);
     set_weights(n, 1, w_output);
 
-    for (int count = 0; count < in; count++)
+    for (int count = 0; count < input_col; count++)
     {
         delete[] w_input[count];
     }
