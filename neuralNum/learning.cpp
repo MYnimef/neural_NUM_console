@@ -4,6 +4,7 @@ void random_weights(int n, int m, double** w);
 void set_weights(int n, int m, double** w);
 double sigmoidFunction(double x);
 void forwardPropagation(int size_of_firstLayer, double firstLayer[], double** weights, int size_of_secondLayer, double* secondLayer);
+void backwardPropagation(int size_of_firstLayer, double firstLayer[], double** weights, int size_of_secondLayer, double* sigma_second, double* sigma_first);
 
 using namespace std;
 
@@ -57,13 +58,37 @@ void neural_learning()
         for (int train = 0; train < trainSet; train++)
         {
             //Forward
-            double hiddenLayer[n] = {};
+            double hiddenLayer[n];
             forwardPropagation(in, input[train], w_input, n, hiddenLayer);
 
-            double result[1] = {};
+            double result[1];
             forwardPropagation(n, hiddenLayer, w_output, 1, result);
 
             //Backward
+
+            double sigma_out[1];
+            sigma_out[0] = (output[train] - result[0]) * result[0] * (1 - result[0]);     //Погрешность суммы до выхода, использование производной функции преобразования
+            double sigma_in[n];
+            backwardPropagation(n, hiddenLayer, w_output, 1, sigma_out, sigma_in);
+
+            double delta_w_output[n];
+            for (int i = 0; i < n; i++)
+            {
+                delta_w_output[i] = k * sigma_out[0] * hiddenLayer[i];
+                w_output[i][0] += delta_w_output[i];
+            }
+
+            double delta_w[in][n];
+            for (int i = 0; i < in; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    delta_w[i][j] = k * sigma_in[j] * input[train][i];
+                    w_input[i][j] += delta_w[i][j];
+                }
+            }
+
+            /*
 
             double sigma_out = (output[train] - result[0]) * result[0] * (1 - result[0]);     //Погрешность суммы до выхода, использование производной функции преобразования
             double delta_w_output[n], sigma_in[n];
@@ -85,6 +110,8 @@ void neural_learning()
                     w_input[i][j] += delta_w[i][j];
                 }
             }
+
+            */
         }
     }
     cout << endl;
@@ -114,7 +141,15 @@ void forwardPropagation(int size_of_firstLayer, double firstLayer[], double** we
     }
 }
 
-void backwardPropagation()
+void backwardPropagation(int size_of_firstLayer, double firstLayer[], double** weights, int size_of_secondLayer, double* sigma_second, double* sigma_first)
 {
-
+    for (int i = 0; i < size_of_firstLayer; i++)
+    {
+        double sigma_in = 0;
+        for (int j = 0; j < size_of_secondLayer; j++)
+        {
+            sigma_in += sigma_second[j] * weights[i][j];
+        }
+        sigma_first[i] = sigma_in * firstLayer[i] * (1 - firstLayer[i]);
+    }
 }
