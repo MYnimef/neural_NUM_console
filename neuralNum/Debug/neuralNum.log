@@ -1,4 +1,8 @@
 ﻿  learning.cpp
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\learning.cpp(14,9): warning C4101: hiddenLayers_amount: неиспользованная локальная переменная
   neuralNum.cpp
+  weights.cpp
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\weights.cpp(9,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
   Создание кода...
+  train.cpp
   neuralNum.vcxproj -> A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\Debug\neuralNum.exe

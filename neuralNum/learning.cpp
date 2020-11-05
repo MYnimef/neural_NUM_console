@@ -10,9 +10,9 @@ using namespace std;
 
 void neural_learning(int trainSet, int input_col, double** input, int output_col, double** output)
 {
-    const int in = 2;   //Кол-во нейронов на входе
-    const int n = 5;    //Кол-во нейронов в скрытом слое
-    double k = 0.3;  //Коэффициент
+    int n = 5;    //Кол-во нейронов в скрытом слое
+    int hiddenLayers_amount; //Кол-во скрытых слоев
+    double k = 0.3;  //Скорость обучения
 
     double** w_input = new double* [input_col];
     for (int count = 0; count < input_col; count++)
@@ -41,29 +41,42 @@ void neural_learning(int trainSet, int input_col, double** input, int output_col
 
         for (int train = 0; train < trainSet; train++)
         {
-            //Forward
-            double hiddenLayer[n];
-            forwardPropagation(in, input[train], w_input, n, hiddenLayer);
+            //Forward propagation
 
-            double result[1];
-            forwardPropagation(n, hiddenLayer, w_output, 1, result);
+            double* hiddenLayer = new double[n];
+            forwardPropagation(input_col, input[train], w_input, n, hiddenLayer);
 
-            //Backward
+            double* result = new double[output_col];
+            forwardPropagation(n, hiddenLayer, w_output, output_col, result);
 
-            double sigma_out[1];
+            //Backward propagation
+
+            double* sigma_out = new double[output_col];
             sigma_out[0] = (output[train][0] - result[0]) * result[0] * (1 - result[0]);     //Погрешность суммы до выхода, использование производной функции преобразования
-            double sigma_in[n];
-            backwardPropagation(n, hiddenLayer, w_output, 1, sigma_out, sigma_in);
+            delete[] result;
 
-            double delta_w_output[n];
+            double* sigma_in = new double[n];
+            backwardPropagation(n, hiddenLayer, w_output, output_col, sigma_out, sigma_in);
+
+            //Корректировка весов
+            
+            double* delta_w_output = new double[n];
             for (int i = 0; i < n; i++)
             {
                 delta_w_output[i] = k * sigma_out[0] * hiddenLayer[i];
                 w_output[i][0] += delta_w_output[i];
             }
+            delete[] sigma_out;
+            delete[] delta_w_output;
+            delete[] hiddenLayer;
 
-            double delta_w[in][n];
-            for (int i = 0; i < in; i++)
+            double** delta_w = new double* [input_col];
+            for (int count = 0; count < input_col; count++)
+            {
+                delta_w[count] = new double [n];
+            }
+
+            for (int i = 0; i < input_col; i++)
             {
                 for (int j = 0; j < n; j++)
                 {
@@ -71,10 +84,12 @@ void neural_learning(int trainSet, int input_col, double** input, int output_col
                     w_input[i][j] += delta_w[i][j];
                 }
             }
+            delete[] sigma_in;
+            delete[] delta_w;
         }
     }
     cout << endl;
-    set_weights(in, n, w_input);
+    set_weights(input_col, n, w_input);
     set_weights(n, 1, w_output);
 
     for (int count = 0; count < input_col; count++)
