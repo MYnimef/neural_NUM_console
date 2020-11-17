@@ -1,43 +1,40 @@
+//Class Neuron. More info soon...
+
 #pragma once
-#include <iostream>
-#include <iomanip>
 #include <cstdlib>
-#include <fstream>
-#include <string>
+#include <cmath>
 #include <ctime>
-
-using namespace std;
-
-double sigmoidFunction(double x);
 
 class Neuron
 {
 public:
-    size_t layerSize;
+    size_t linesNum;
+    size_t columnsNum;
+    double** weights;
+    double* layer;
+    double* sigma;
 
-    void setRandomWeights(size_t n, size_t m)
+    void setRandomWeights(size_t n, size_t m)   //Weights initialization and randomization.
     {
-        linesNum = n, layerSize = m;
+        linesNum = n, columnsNum = m;
         weights = new double* [linesNum];
         for (size_t i = 0; i < linesNum; i++)
         {
-            weights[i] = new double[layerSize];
-            for (size_t j = 0; j < layerSize; j++)
+            weights[i] = new double[columnsNum];
+            for (size_t j = 0; j < columnsNum; j++)
             {
-                weights[i][j] = (5 - rand() % 10) * 0.01;
+                weights[i][j] = (5 - rand() % 10) * 0.1;
             }
         }
     }
 
-    double* layer;
-
-    void forwardPropagation(size_t previousLayerSize, double* previousLayer)
+    void forwardPropagation(double* previousLayer)  //Forward propagation needs previous layer values.
     {
-        layer = new double[layerSize];
-        for (size_t i = 0; i < layerSize; i++)
+        layer = new double[columnsNum];
+        for (size_t i = 0; i < columnsNum; i++)
         {
             double sum = 0;
-            for (size_t j = 0; j < previousLayerSize; j++)
+            for (size_t j = 0; j < linesNum; j++)
             {
                 sum += previousLayer[j] * weights[j][i];
             }
@@ -45,21 +42,19 @@ public:
         }
     }
 
-    double* sigma;
-
-    void mistake(double* output)
+    void mistake(double* output)    //Margion of error calculation, from this point backwars propagation starts.
     {
-        sigma = new double[layerSize];
-        for (size_t i = 0; i < layerSize; i++)
+        sigma = new double[columnsNum];
+        for (size_t i = 0; i < columnsNum; i++)
         {
            sigma[i] = (output[i] - layer[i]) * layer[i] * (1 - layer[i]);
         }
     }
 
-    void backwardPropagation(size_t previousLayerSize, double** previousWeights, double* previousSigma)
+    void backwardPropagation(size_t previousLayerSize, double** previousWeights, double* previousSigma) //Calculation of sigma (aka error) for each layer.
     {
-        sigma = new double[layerSize];
-        for (size_t i = 0; i < layerSize; i++)
+        sigma = new double[columnsNum];
+        for (size_t i = 0; i < columnsNum; i++)
         {
             double sigma_in = 0;
             for (size_t j = 0; j < previousLayerSize; j++)
@@ -70,42 +65,28 @@ public:
         }
     }
 
-    double** deltaWeights;
-
-    void changeWeights(double k, double* previousLayer)
+    void changeWeights(double k, double* previousLayer) //Final change of weights, using sigma.
     {
-        deltaWeights = new double* [linesNum];
+        double** deltaWeights = new double* [linesNum];
         for (size_t i = 0; i < linesNum; i++)
         {
-            deltaWeights[i] = new double[layerSize];
-            for (size_t j = 0; j < layerSize; j++)
+            deltaWeights[i] = new double[columnsNum];
+            for (size_t j = 0; j < columnsNum; j++)
             {
                 deltaWeights[i][j] = k * sigma[j] * previousLayer[i];
                 weights[i][j] += deltaWeights[i][j];
             }
+            delete[] deltaWeights[i];
         }
     }
 
-    void setWeights()
-    {
-        ofstream file_w("weights.txt", ios_base::app);
-        for (size_t i = 0; i < linesNum; i++)
-        {
-            for (size_t j = 0; j < layerSize; j++)
-            {
-                file_w << fixed << weights[i][j] << endl;
-            }
-        }
-        file_w.close();
-    }
-
-    void clear()
+    void clear()    //Dynamic arrays are need to be deleted.
     {
         delete[] layer;
         delete[] sigma;
     }
 
-    void clearWeights()
+    void clearWeights() //Dynamic arrays are need to be deleted.
     {
         for (size_t i = 0; i < linesNum; i++)
         {
@@ -113,11 +94,13 @@ public:
         }
     }
 
-//private:
-    size_t linesNum;
-    double** weights;
+private:
+    double sigmoidFunction(double x)  //Function that calculates value INSIDE neuron.
+    {
+        return 1 / (1 + exp(-x));
+    }
 
-    void matrixMultiplication(size_t M1_str, double** M1, size_t same, double** M2, size_t M2_col, double** result)
+    void matrixMultiplication(size_t M1_str, double** M1, size_t same, double** M2, size_t M2_col, double** result) //I don't use it, but it's there... and it ceeps you going...
     {
         for (size_t i = 0; i < M1_str; i++)
         {

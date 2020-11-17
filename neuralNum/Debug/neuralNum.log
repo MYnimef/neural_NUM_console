@@ -1,5 +1,2 @@
-﻿  learning.cpp
-A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\learning.cpp(11,27): warning C4838: Преобразование из "int" в "size_t" требует сужающего преобразования.
-A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\learning.cpp(11,41): warning C4838: Преобразование из "int" в "size_t" требует сужающего преобразования.
-A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\learning.cpp(30,38): warning C4018: <: несоответствие типов со знаком и без знака
+﻿  neuralNum.cpp
   neuralNum.vcxproj -> A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\Debug\neuralNum.exe

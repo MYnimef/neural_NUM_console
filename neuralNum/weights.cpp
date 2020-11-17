@@ -1,52 +1,43 @@
+#include <iomanip>
 #include <fstream>
 #include <string>
-#include <ctime>
+#include "Neuron.h"
 
 using namespace std;
 
-void random_weights(int n, int m, double** w)
-{
-    srand(time(0));     //Настройка генерации чисел от времени
-    for (int i = 0; i < n; i++)     //Цикл, присваивающий рандомные значения весам (диапазон от -0.5 до 0.5)
-    {
-        for (int j = 0; j < m; j++)
-        {
-            w[i][j] = (5.0 - rand() % 10) * 0.1;
-        }
-    }
-}
-
-void get_weights(const int n, double w1[], double w2[], double w3[])
+void getWeights(size_t size, Neuron* obj, size_t* neuronNum)
 {
     ifstream file_w("weights.txt");  //
-    for (int i = 0; i < 3 * n; i++)
+
+    for (size_t s = 0; s < size; s++)
     {
-        string num;
-        file_w >> num;
-        if (i < n)
+        obj[s].linesNum = neuronNum[s];
+        obj[s].columnsNum = neuronNum[s + 1];
+
+        obj[s].weights = new double* [neuronNum[s]];
+        for (size_t i = 0; i < neuronNum[s]; i++)
         {
-            w1[i] = stof(num);
-        }
-        else if (i < 2 * n)
-        {
-            w2[i - n] = stof(num);
-        }
-        else
-        {
-            w3[i - 2 * n] = stof(num);
+            obj[s].weights[i] = new double[neuronNum[s + 1]];
+            for (size_t j = 0; j < neuronNum[s + 1]; j++)
+            {
+                string num;
+                file_w >> num;
+                obj[s].weights[i][j] = stof(num);
+            }
         }
     }
+
     file_w.close();
 }
 
-void set_weights(int n, int m, double** w)
+void setWeights(size_t linesNum, size_t columnsNum, double** weights)
 {
     ofstream file_w("weights.txt", ios_base::app);
-    for (int i = 0; i < n; i++)
+    for (size_t i = 0; i < linesNum; i++)
     {
-        for (int j = 0; j < m; j++)
+        for (size_t j = 0; j < columnsNum; j++)
         {
-            file_w << fixed << w[i][j] << endl;
+            file_w << fixed << weights[i][j] << endl;
         }
     }
     file_w.close();

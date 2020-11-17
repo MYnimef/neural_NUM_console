@@ -27,9 +27,6 @@
     <ClCompile Include="weights.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="function.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="train.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>

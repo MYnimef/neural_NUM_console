@@ -1,6 +1,6 @@
 ﻿#include <iostream>
-#include <cstdlib>
 #include <fstream>
+#include "Neuron.h"
 #include "ohMy.cpp"
 
 void getInfo(int* trainSet, int* input_col, int* output_col);
@@ -8,12 +8,11 @@ void getInput(int trainSet, int input_col, double** input);
 void getOutput(int trainSet, int output_col, double** output);
 
 void neural_learning(int trainSet, int input_col, double** input, int output_col, double** output);
-double sigmoidFunction(double x);
-void get_weights(const int n, double w1[], double w2[], double w3[]);
 
 using namespace std;
 
-double neuralNetwork(int input[]);
+void neuralNetwork(double* input, double* result);
+void getWeights(size_t size, Neuron* obj, size_t* neuronNum);
 
 int main()
 {
@@ -47,9 +46,6 @@ int main()
             for (int count = 0; count < trainSet; count++)
             {
                 delete[] input[count];
-            }
-            for (int count = 0; count < trainSet; count++)
-            {
                 delete[] output[count];
             }
         }
@@ -59,32 +55,41 @@ int main()
         }
 
         cout << "Enter x1, x2: ";
-        int x[2];
+        double x[2];
         cin >> x[0] >> x[1];
 
-        cout << neuralNetwork(x) << endl;
+        double* result = new double[1];
+        neuralNetwork(x, result);
+        for (size_t i = 0; i < 1; i++)
+        {
+            cout << result[i] << " ";
+        }
+        cout << endl;
+        delete[] result;
+
         task = mojemPovtorit();
     }
     return 0;
 }
 
-double neuralNetwork(int input[])
+void neuralNetwork(double* input, double* result)
 {
-    const int n = 5;    //Кол-во скрытых слоев
-    const int in = 2;
-    double w_input[in][n], w_output[n];
-    get_weights(n, w_input[0], w_input[1], w_output);
+    size_t hiddenLayersAmount = 2;  //Кол-во скрытых слоев
+    size_t neuronNum[] = { 2, 5, 5, 1 };    //Кол-во нейронов в каждом слое
 
-    double hiddenLayer[n], pre_result = 0;
-    for (int i = 0; i < n; i++)
+    Neuron* perceptron = new Neuron[hiddenLayersAmount + 1];
+    getWeights(hiddenLayersAmount + 1, perceptron, neuronNum);
+
+    perceptron[0].forwardPropagation(input);
+    perceptron[0].clearWeights();
+    for (size_t i = 1; i < hiddenLayersAmount + 1; i++)
     {
-        double pre_hiddenLayer = 0;
-        for (int j = 0; j < in; j++)
-        {
-            pre_hiddenLayer += input[j] * w_input[j][i];
-        }
-        hiddenLayer[i] = sigmoidFunction(pre_hiddenLayer);
-        pre_result += hiddenLayer[i] * w_output[i];
+        perceptron[i].forwardPropagation(perceptron[i - 1].layer);
+        perceptron[i].clearWeights();
     }
-    return sigmoidFunction(pre_result);
+    for (size_t i = 0; i < perceptron[hiddenLayersAmount].columnsNum; i++)
+    {
+        result[i] = perceptron[hiddenLayersAmount].layer[i];
+    }
+    delete[] perceptron;
 }
