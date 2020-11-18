@@ -11,12 +11,12 @@ void getInfo(int *trainSet, int *input_col, int *output_col)
     file.close();
 }
 
-void getInput(int trainSet, int input_col, double** input)
+void getInput(size_t trainSet, size_t inputNum, double** input)
 {
     ifstream file("XOR_input.txt");
-    for (int i = 0; i < trainSet; i++)
+    for (size_t i = 0; i < trainSet; i++)
     {
-        for (int j = 0; j < input_col; j++)
+        for (size_t j = 0; j < inputNum; j++)
         {
             file >> input[i][j];
         }
@@ -24,12 +24,12 @@ void getInput(int trainSet, int input_col, double** input)
     file.close();
 }
 
-void getOutput(int trainSet, int output_col, double** output)
+void getOutput(size_t trainSet, size_t outputNum, double** output)
 {
     ifstream file("XOR_output.txt");
-    for (int i = 0; i < trainSet; i++)
+    for (size_t i = 0; i < trainSet; i++)
     {
-        for (int j = 0; j < output_col; j++)
+        for (size_t j = 0; j < outputNum; j++)
         {
             file >> output[i][j];
         }

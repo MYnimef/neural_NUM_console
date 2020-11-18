@@ -3,19 +3,23 @@
 #include "Neuron.h"
 #include "ohMy.cpp"
 
-void getInfo(int* trainSet, int* input_col, int* output_col);
-void getInput(int trainSet, int input_col, double** input);
-void getOutput(int trainSet, int output_col, double** output);
+void getInput(size_t trainSet, size_t inputNum, double** input);
+void getOutput(size_t trainSet, size_t outputNum, double** output);
 
-void neural_learning(int trainSet, int input_col, double** input, int output_col, double** output);
+void neural_learning(size_t trainSet, size_t* neuronNum, size_t hiddenLayersAmount, double** input, double** output);
 
 using namespace std;
 
-void neuralNetwork(double* input, double* result);
+void neuralNetwork(size_t* neuronNum, size_t hiddenLayersAmount, double* input, double* result);
 void getWeights(size_t size, Neuron* obj, size_t* neuronNum);
 
 int main()
 {
+    size_t trainSet = 4;    //Number of train sets (for learning).
+    size_t inputNum = 2, outputNum = 1; //Number of input and output values.
+    size_t hiddenLayersAmount = 2;  //Number of hidden layers.
+    size_t neuronNum[] = { inputNum, 5, 3, outputNum };    //Number of neurons in each layer.
+
     cout << "This is the nerural network that makes digit recognition." << endl;
     bool task = true;
     while (task)
@@ -23,27 +27,19 @@ int main()
         ifstream file_w("weights.txt");
         if (!file_w.is_open())  //Если файл не открыт
         {
-            int trainSet, input_col, output_col;
-            getInfo(&trainSet, &input_col, &output_col);
-
             double** input = new double* [trainSet];
-            for (int count = 0; count < trainSet; count++)
-            {
-                input[count] = new double[input_col];
-            }
-
             double** output = new double* [trainSet];
-            for (int count = 0; count < trainSet; count++)
+            for (size_t count = 0; count < trainSet; count++)
             {
-                output[count] = new double[output_col];
+                input[count] = new double[inputNum];
+                output[count] = new double[outputNum];
             }
 
-            getInput(trainSet, input_col, input);
-            getOutput(trainSet, output_col, output);
+            getInput(trainSet, inputNum, input);
+            getOutput(trainSet, outputNum, output);
+            neural_learning(trainSet, neuronNum, hiddenLayersAmount, input, output);
 
-            neural_learning(trainSet, input_col, input, output_col, output);
-
-            for (int count = 0; count < trainSet; count++)
+            for (size_t count = 0; count < trainSet; count++)
             {
                 delete[] input[count];
                 delete[] output[count];
@@ -54,13 +50,18 @@ int main()
             file_w.close();
         }
 
-        cout << "Enter x1, x2: ";
-        double x[2];
-        cin >> x[0] >> x[1];
+        cout << "Enter " << inputNum << " values: ";
+        double* in = new double[inputNum];
+        for (size_t i = 0; i < inputNum; i++)
+        {
+            cin >> in[i];
+        }
 
         double* result = new double[1];
-        neuralNetwork(x, result);
-        for (size_t i = 0; i < 1; i++)
+        neuralNetwork(neuronNum, hiddenLayersAmount, in, result);
+        delete[] in;
+
+        for (size_t i = 0; i < outputNum; i++)
         {
             cout << result[i] << " ";
         }
@@ -72,11 +73,8 @@ int main()
     return 0;
 }
 
-void neuralNetwork(double* input, double* result)
+void neuralNetwork(size_t* neuronNum, size_t hiddenLayersAmount, double* input, double* result)
 {
-    size_t hiddenLayersAmount = 2;  //Кол-во скрытых слоев
-    size_t neuronNum[] = { 2, 5, 5, 1 };    //Кол-во нейронов в каждом слое
-
     Neuron* perceptron = new Neuron[hiddenLayersAmount + 1];
     getWeights(hiddenLayersAmount + 1, perceptron, neuronNum);
 

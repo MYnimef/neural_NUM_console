@@ -8,12 +8,10 @@ using namespace std;
 void getWeights(size_t size, Neuron* obj, size_t* neuronNum)
 {
     ifstream file_w("weights.txt");  //
-
     for (size_t s = 0; s < size; s++)
     {
         obj[s].linesNum = neuronNum[s];
         obj[s].columnsNum = neuronNum[s + 1];
-
         obj[s].weights = new double* [neuronNum[s]];
         for (size_t i = 0; i < neuronNum[s]; i++)
         {
@@ -26,19 +24,22 @@ void getWeights(size_t size, Neuron* obj, size_t* neuronNum)
             }
         }
     }
-
     file_w.close();
 }
 
-void setWeights(size_t linesNum, size_t columnsNum, double** weights)
+void setWeights(size_t size, Neuron* obj)
 {
-    ofstream file_w("weights.txt", ios_base::app);
-    for (size_t i = 0; i < linesNum; i++)
+    ofstream file_w("weights.txt");
+    for (size_t s = 0; s < size; s++)
     {
-        for (size_t j = 0; j < columnsNum; j++)
+        for (size_t i = 0; i < obj[s].linesNum; i++)
         {
-            file_w << fixed << weights[i][j] << endl;
+            for (size_t j = 0; j < obj[s].columnsNum; j++)
+            {
+                file_w << fixed << obj[s].weights[i][j] << endl;
+            }
         }
+        obj[s].clearWeights();
     }
     file_w.close();
 }

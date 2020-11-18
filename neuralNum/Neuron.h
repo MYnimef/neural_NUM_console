@@ -8,8 +8,7 @@
 class Neuron
 {
 public:
-    size_t linesNum;
-    size_t columnsNum;
+    size_t linesNum, columnsNum;
     double** weights;
     double* layer;
     double* sigma;
@@ -98,21 +97,5 @@ private:
     double sigmoidFunction(double x)  //Function that calculates value INSIDE neuron.
     {
         return 1 / (1 + exp(-x));
-    }
-
-    void matrixMultiplication(size_t M1_str, double** M1, size_t same, double** M2, size_t M2_col, double** result) //I don't use it, but it's there... and it ceeps you going...
-    {
-        for (size_t i = 0; i < M1_str; i++)
-        {
-            for (size_t j = 0; j < M2_col; j++)
-            {
-                double sup = 0;
-                for (size_t k = 0; k < same; k++)
-                {
-                    sup += M1[i][k] * M2[j][k];
-                }
-                result[i][j] = sup;
-            }
-        }
     }
 };

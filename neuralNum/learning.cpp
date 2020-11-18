@@ -3,16 +3,13 @@
 
 using namespace std;
 
-void setWeights(size_t linesNum, size_t columnsNum, double** weights);
+void setWeights(size_t size, Neuron* obj);
 
-void neural_learning(int trainSet, int input_col, double** input, int output_col, double** output)
+void neural_learning(size_t trainSet, size_t* neuronNum, size_t hiddenLayersAmount, double** input, double** output)
 {
-    size_t hiddenLayersAmount = 2;  //Кол-во скрытых слоев
-    size_t neuronNum[] = {input_col, 5, 5, output_col};    //Кол-во нейронов в каждом слое
     double k = 0.3;  //Скорость обучения
-
     Neuron* perceptron = new Neuron[hiddenLayersAmount + 1];
-    for (size_t i = 0; i < hiddenLayersAmount + 1; i++)
+    for (size_t i = 0; i <= hiddenLayersAmount; i++)
     {
         perceptron[i].setRandomWeights(neuronNum[i], neuronNum[i + 1]);
     }
@@ -31,7 +28,7 @@ void neural_learning(int trainSet, int input_col, double** input, int output_col
         {
             //Forward propagation
             perceptron[0].forwardPropagation(input[train]);
-            for (size_t i = 1; i < hiddenLayersAmount + 1; i++)
+            for (size_t i = 1; i <= hiddenLayersAmount; i++)
             {
                 perceptron[i].forwardPropagation(perceptron[i - 1].layer);
             }
@@ -45,12 +42,12 @@ void neural_learning(int trainSet, int input_col, double** input, int output_col
 
             //Корректировка весов
             perceptron[0].changeWeights(k, input[train]);
-            for (size_t i = 1; i < hiddenLayersAmount + 1; i++)
+            for (size_t i = 1; i <= hiddenLayersAmount; i++)
             {
                 perceptron[i].changeWeights(k, perceptron[i - 1].layer);
             }
 
-            for (size_t i = 0; i < hiddenLayersAmount + 1; i++)
+            for (size_t i = 0; i <= hiddenLayersAmount; i++)
             {
                 perceptron[i].clear();
             }
@@ -58,11 +55,6 @@ void neural_learning(int trainSet, int input_col, double** input, int output_col
     }
     cout << endl;
 
-    for (size_t i = 0; i < hiddenLayersAmount + 1; i++)
-    {
-        setWeights(perceptron[i].linesNum, perceptron[i].columnsNum, perceptron[i].weights);
-        perceptron[i].clearWeights();
-    }
-
+    setWeights(hiddenLayersAmount + 1, perceptron);
     delete[] perceptron;
 }
