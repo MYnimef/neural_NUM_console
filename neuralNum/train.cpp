@@ -2,15 +2,6 @@
 
 using namespace std;
 
-void getInfo(int *trainSet, int *input_col, int *output_col)
-{
-    ifstream file("XOR_info.txt");
-    file >> *trainSet;
-    file >> *input_col;
-    file >> *output_col;
-    file.close();
-}
-
 void getInput(size_t trainSet, size_t inputNum, double** input)
 {
     ifstream file("XOR_input.txt");

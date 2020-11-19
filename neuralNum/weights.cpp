@@ -7,7 +7,7 @@ using namespace std;
 
 void getWeights(size_t size, Neuron* obj, size_t* neuronNum)
 {
-    ifstream file_w("weights.txt");  //
+    ifstream file_w("weights.txt");  //If file is not opened
     for (size_t s = 0; s < size; s++)
     {
         obj[s].linesNum = neuronNum[s];

@@ -22,7 +22,7 @@ public:
             weights[i] = new double[columnsNum];
             for (size_t j = 0; j < columnsNum; j++)
             {
-                weights[i][j] = (5 - rand() % 10) * 0.1;
+                weights[i][j] = (5.0 - rand() % 10) * 0.1;
             }
         }
     }
