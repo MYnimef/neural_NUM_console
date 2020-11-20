@@ -1,3 +1,4 @@
+#include <iostream>
 #include <iomanip>
 #include <fstream>
 #include <string>
@@ -7,7 +8,7 @@ using namespace std;
 
 void getWeights(size_t size, Neuron* obj, size_t* neuronNum)
 {
-    ifstream file_w("weights.txt");  //If file is not opened
+    ifstream file_w("weights.txt");
     for (size_t s = 0; s < size; s++)
     {
         obj[s].linesNum = neuronNum[s];
@@ -20,7 +21,7 @@ void getWeights(size_t size, Neuron* obj, size_t* neuronNum)
             {
                 string num;
                 file_w >> num;
-                obj[s].weights[i][j] = stof(num);
+                obj[s].weights[i][j] = stod(num);
             }
         }
     }

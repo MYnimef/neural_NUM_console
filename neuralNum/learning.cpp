@@ -14,7 +14,7 @@ void neural_learning(size_t trainSet, size_t* neuronNum, size_t hiddenLayersAmou
         perceptron[i].setRandomWeights(neuronNum[i], neuronNum[i + 1]);
     }
 
-    size_t maxEpoch = 100000; //Epoch amount
+    size_t maxEpoch = 1000; //Epoch amount
     size_t delta_load = maxEpoch / 10, loading = delta_load;   //Loading variables just for fun
 
     for (size_t epoch = 0; epoch < maxEpoch; epoch++)   //Start of learning process
