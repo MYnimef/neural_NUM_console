@@ -12,6 +12,8 @@ void getInput(double* input, char* filename);
 void neuralNetwork(size_t* neuronNum, size_t hiddenLayersAmount, double* input, double* result);
 void getWeights(size_t size, Neuron* obj, size_t* neuronNum);
 
+void outNum(size_t size, double* num);  //Draws num from png to console.
+
 bool mojemPovtorit();
 
 int main()
@@ -58,43 +60,52 @@ int main()
             file_w.close();
         }
 
-        double* in = new double[inputNum];
-        char filename[] = "try5.png";
-        getInput(in, filename);
-        for (size_t i = 0; i < inputNum; i++)
+        char filename[] = "try\\try0.png";
+        for (size_t i = 0; i <= 9; i++)
         {
-            if (in[i] == 1)
+            double* in = new double[inputNum];
+            getInput(in, filename);
+            outNum(inputNum, in);
+
+            double* result = new double[outputNum];
+            neuralNetwork(neuronNum, hiddenLayersAmount, in, result);
+            delete[] in;
+
+            for (size_t i = 0; i < outputNum; i++)
             {
-                cout << '1' << " ";
+                //cout << result[i] << " ";
+                if (result[i] > 0.8)
+                {
+                    cout << "Result is " << i << ".";
+                }
             }
-            else
-            {
-                cout << "  ";
-            }
-            if ((i + 1) % 28 == 0)
-            {
-                cout << endl;
-            }
+            cout << endl;
+            delete[] result;
+
+            filename[7]++;
         }
-
-        double* result = new double[outputNum];
-        neuralNetwork(neuronNum, hiddenLayersAmount, in, result);
-        delete[] in;
-
-        for (size_t i = 0; i < outputNum; i++)
-        {
-            //cout << result[i] << " ";
-            if (result[i] > 0.8)
-            {
-                cout << i;
-            }
-        }
-        cout << endl;
-        delete[] result;
-
         task = mojemPovtorit();
     }
     return 0;
+}
+
+void outNum(size_t size, double* num)
+{
+    for (size_t i = 0; i < size; i++)
+    {
+        if (num[i] == 1)
+        {
+            cout << '1' << " ";
+        }
+        else
+        {
+            cout << "  ";
+        }
+        if ((i + 1) % 28 == 0)
+        {
+            cout << endl;
+        }
+    }
 }
 
 void neuralNetwork(size_t* neuronNum, size_t hiddenLayersAmount, double* input, double* result)

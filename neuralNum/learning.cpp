@@ -14,7 +14,7 @@ void neural_learning(size_t trainSet, size_t* neuronNum, size_t hiddenLayersAmou
         perceptron[i].setRandomWeights(neuronNum[i], neuronNum[i + 1]);
     }
 
-    size_t maxEpoch = 1000; //Epoch amount
+    size_t maxEpoch = 100; //Epoch amount
     size_t delta_load = maxEpoch / 10, loading = delta_load;   //Loading variables just for fun
 
     for (size_t epoch = 0; epoch < maxEpoch; epoch++)   //Start of learning process
@@ -34,25 +34,13 @@ void neural_learning(size_t trainSet, size_t* neuronNum, size_t hiddenLayersAmou
                 perceptron[i].forwardPropagation(perceptron[i - 1].layer);
             }
 
-            //Backward propagation.
+            //Backward propagation and Change of weights.
             perceptron[hiddenLayersAmount].mistake(output[train]);
             for (size_t i = hiddenLayersAmount; i > 0; i--)
             {
-                perceptron[i - 1].backwardPropagation(perceptron[i].columnsNum, perceptron[i].weights, perceptron[i].sigma);
+                perceptron[i - 1].backwardPropagation(perceptron[i].columnsNum, perceptron[i].weights, perceptron[i].sigma, k);
             }
-
-            //Change of weights.
             perceptron[0].changeWeights(k, input[train]);
-            for (size_t i = 1; i <= hiddenLayersAmount; i++)
-            {
-                perceptron[i].changeWeights(k, perceptron[i - 1].layer);
-            }
-
-            //We don't need layers and sigmas anymore.
-            for (size_t i = 0; i <= hiddenLayersAmount; i++)
-            {
-                perceptron[i].clear();
-            }
         }
     }
     cout << endl;

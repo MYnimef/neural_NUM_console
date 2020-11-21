@@ -48,9 +48,10 @@ public:
         {
            sigma[i] = (output[i] - layer[i]) * layer[i] * (1 - layer[i]);
         }
+        delete[] layer;
     }
 
-    void backwardPropagation(size_t previousLayerSize, double** previousWeights, double* previousSigma) //Calculation of sigma (aka error) for each layer.
+    void backwardPropagation(size_t previousLayerSize, double** previousWeights, double* previousSigma, double k) //Calculation of sigma (aka error) for each layer.
     {
         sigma = new double[columnsNum];
         for (size_t i = 0; i < columnsNum; i++)
@@ -59,29 +60,23 @@ public:
             for (size_t j = 0; j < previousLayerSize; j++)
             {
                 sigma_in += previousSigma[j] * previousWeights[i][j];
+                previousWeights[i][j] += k * previousSigma[j] * layer[i];
             }
             sigma[i] = sigma_in * layer[i] * (1 - layer[i]);
         }
+        delete[] layer;
+        delete[] previousSigma;
     }
 
     void changeWeights(double k, double* previousLayer) //Final change of weights, using sigma.
     {
-        double** deltaWeights = new double* [linesNum];
         for (size_t i = 0; i < linesNum; i++)
         {
-            deltaWeights[i] = new double[columnsNum];
             for (size_t j = 0; j < columnsNum; j++)
             {
-                deltaWeights[i][j] = k * sigma[j] * previousLayer[i];
-                weights[i][j] += deltaWeights[i][j];
+                weights[i][j] += k * sigma[j] * previousLayer[i];
             }
-            delete[] deltaWeights[i];
         }
-    }
-
-    void clear()    //Dynamic arrays are need to be deleted.
-    {
-        delete[] layer;
         delete[] sigma;
     }
 
