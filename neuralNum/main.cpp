@@ -18,7 +18,7 @@ bool mojemPovtorit();
 
 int main()
 {
-    size_t trainSet = 1000;    //Number of train sets (for learning).
+    size_t trainSet = 10000;    //Number of train sets (for learning).
     size_t inputNum = 784, outputNum = 10; //Number of input and output values.
     size_t hiddenLayersAmount = 2;  //Number of hidden layers.
     size_t neuronNum[] = { inputNum, 200, 100, outputNum };    //Number of neurons in each layer.

@@ -17,6 +17,7 @@ public:
     {
         linesNum = n, columnsNum = m;
         weights = new double* [linesNum];
+        srand(time(0));
         for (size_t i = 0; i < linesNum; i++)
         {
             weights[i] = new double[columnsNum];
