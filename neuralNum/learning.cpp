@@ -1,8 +1,6 @@
 #include <iostream>
 #include "Neuron.h"
 
-using namespace std;
-
 void setWeights(size_t size, Neuron* obj);
 
 void neural_learning(size_t trainSet, size_t* neuronNum, size_t hiddenLayersAmount, double** input, double** output)
@@ -14,14 +12,14 @@ void neural_learning(size_t trainSet, size_t* neuronNum, size_t hiddenLayersAmou
         perceptron[i].setRandomWeights(neuronNum[i], neuronNum[i + 1]);
     }
 
-    size_t maxEpoch = 100; //Epoch amount
+    size_t maxEpoch = 10; //Epoch amount
     size_t delta_load = maxEpoch / 10, loading = delta_load;   //Loading variables just for fun
 
     for (size_t epoch = 0; epoch < maxEpoch; epoch++)   //Start of learning process
     {
         if ((epoch + 1) == loading) //Loading
         {
-            cout << '*';
+            std::cout << '*';
             loading += delta_load;
         }
 
@@ -43,7 +41,7 @@ void neural_learning(size_t trainSet, size_t* neuronNum, size_t hiddenLayersAmou
             perceptron[0].changeWeights(k, input[train]);
         }
     }
-    cout << endl;
+    std::cout << std::endl;
 
     setWeights(hiddenLayersAmount + 1, perceptron);
     delete[] perceptron;

@@ -1,3 +1,6 @@
-﻿  main.cpp
+﻿  learning.cpp
 A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\Neuron.h(20,19): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  main.cpp
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\Neuron.h(20,19): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Создание кода...
   neuralNum.vcxproj -> A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\x64\Debug\neuralNum.exe

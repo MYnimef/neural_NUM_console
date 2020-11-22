@@ -14,16 +14,20 @@ void getWeights(size_t size, Neuron* obj, size_t* neuronNum);
 
 void outNum(size_t size, double* num);  //Draws num from png to console.
 
+void sayHi();
 bool mojemPovtorit();
 
 int main()
 {
-    size_t trainSet = 10000;    //Number of train sets (for learning).
+    sayHi();
+    cout << "This is the nerural network that makes digit recognition." << endl
+         << "Used lodepng libraries for PNG decode" << endl;
+
+    size_t trainSet = 60000;    //Number of train sets (for learning).
     size_t inputNum = 784, outputNum = 10; //Number of input and output values.
     size_t hiddenLayersAmount = 2;  //Number of hidden layers.
-    size_t neuronNum[] = { inputNum, 200, 100, outputNum };    //Number of neurons in each layer.
+    size_t neuronNum[] = { inputNum, 200, 50, outputNum };    //Number of neurons in each layer.
 
-    cout << "This is the nerural network that makes digit recognition." << endl;
     bool task = true;
     while (task)
     {
@@ -45,9 +49,9 @@ int main()
             setTrainInOut(trainSet, input, output);
             cout << "Got train values!" << endl;
 
-            clock_t start = clock();    //For calculating time of learning process
+            clock_t start = clock();    //For calculating the duration of learning process
             neural_learning(trainSet, neuronNum, hiddenLayersAmount, input, output);    //learning
-            cout << "Time - " << ((double) clock() - start) / (double)CLOCKS_PER_SEC << " (sec)." << endl;
+            cout << "Time - " << ((double) clock() - start) / (double)CLOCKS_PER_SEC << " (sec)." << endl;  //Tells us how long it was.
 
             for (size_t count = 0; count < trainSet; count++)
             {

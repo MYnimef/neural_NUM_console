@@ -2,6 +2,13 @@
 
 using namespace std;
 
+void sayHi()
+{
+    cout << "********************************************************" << endl
+         << "*****************Prject made by MYnimef*****************" << endl
+         << "********************************************************" << endl << endl;
+}
+
 bool mojemPovtorit()
 {
     bool task = true;
