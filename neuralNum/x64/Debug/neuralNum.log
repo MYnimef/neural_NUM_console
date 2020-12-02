@@ -1,6 +1,34 @@
 ﻿  learning.cpp
 A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\Neuron.h(20,19): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  lodepng.cpp
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\lodepng.cpp(712,54): warning C4334: <<: результат 32-разрядного смещения неявно преобразуется в 64-разрядное значение (предполагалось 64-разрядное смещение?)
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\lodepng.cpp(730,35): warning C4267: =: преобразование из "size_t" в "unsigned short"; возможна потеря данных
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\lodepng.cpp(731,39): warning C4334: <<: результат 32-разрядного смещения неявно преобразуется в 64-разрядное значение (предполагалось 64-разрядное смещение?)
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\lodepng.cpp(754,37): warning C4267: =: преобразование из "size_t" в "unsigned short"; возможна потеря данных
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\lodepng.cpp(771,38): warning C4267: =: преобразование из "size_t" в "unsigned short"; возможна потеря данных
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\lodepng.cpp(3728,78): warning C4267: аргумент: преобразование из "size_t" в "unsigned int"; возможна потеря данных
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\lodepng.cpp(4698,33): warning C4267: =: преобразование из "size_t" в "unsigned int"; возможна потеря данных
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\lodepng.cpp(4920,60): warning C4267: аргумент: преобразование из "size_t" в "unsigned int"; возможна потеря данных
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\lodepng.cpp(4925,83): warning C4267: аргумент: преобразование из "size_t" в "unsigned int"; возможна потеря данных
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\lodepng.cpp(4926,94): warning C4267: аргумент: преобразование из "size_t" в "unsigned int"; возможна потеря данных
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\lodepng.cpp(4927,83): warning C4267: аргумент: преобразование из "size_t" в "unsigned int"; возможна потеря данных
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\lodepng.cpp(4928,94): warning C4267: аргумент: преобразование из "size_t" в "unsigned int"; возможна потеря данных
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\lodepng.cpp(4929,83): warning C4267: аргумент: преобразование из "size_t" в "unsigned int"; возможна потеря данных
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\lodepng.cpp(4930,94): warning C4267: аргумент: преобразование из "size_t" в "unsigned int"; возможна потеря данных
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\lodepng.cpp(4931,78): warning C4267: аргумент: преобразование из "size_t" в "unsigned int"; возможна потеря данных
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\lodepng.cpp(5122,3): warning C4267: аргумент: преобразование из "size_t" в "unsigned int"; возможна потеря данных
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\lodepng.cpp(5146,7): warning C4267: аргумент: преобразование из "size_t" в "unsigned int"; возможна потеря данных
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\lodepng.cpp(5180,62): warning C4267: аргумент: преобразование из "size_t" в "unsigned int"; возможна потеря данных
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\lodepng.cpp(5197,3): warning C4267: аргумент: преобразование из "size_t" в "unsigned int"; возможна потеря данных
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\lodepng.cpp(5219,57): warning C4267: аргумент: преобразование из "size_t" в "unsigned int"; возможна потеря данных
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\lodepng.cpp(5250,57): warning C4267: аргумент: преобразование из "size_t" в "unsigned int"; возможна потеря данных
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\lodepng.cpp(5363,57): warning C4267: аргумент: преобразование из "size_t" в "unsigned int"; возможна потеря данных
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\lodepng.cpp(5441,33): warning C4334: <<: результат 32-разрядного смещения неявно преобразуется в 64-разрядное значение (предполагалось 64-разрядное смещение?)
   main.cpp
+A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\Neuron.h(20,19): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  ohMy.cpp
+  picture.cpp
+  weights.cpp
 A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\Neuron.h(20,19): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
   Создание кода...
   neuralNum.vcxproj -> A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\x64\Debug\neuralNum.exe

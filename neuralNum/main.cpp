@@ -20,7 +20,7 @@ bool mojemPovtorit();
 int main()
 {
     sayHi();
-    cout << "This is the nerural network that makes digit recognition." << endl
+    cout << "This is the neural network that makes digit recognition." << endl
          << "Used lodepng libraries for PNG decode" << endl;
 
     size_t trainSet = 60000;    //Number of train sets (for learning).
@@ -75,12 +75,12 @@ int main()
             neuralNetwork(neuronNum, hiddenLayersAmount, in, result);
             delete[] in;
 
-            for (size_t i = 0; i < outputNum; i++)
+            for (size_t j = 0; j < outputNum; j++)
             {
-                //cout << result[i] << " ";
-                if (result[i] > 0.8)
+                //cout << result[j] << " ";
+                if (result[j] > 0.8)
                 {
-                    cout << "Result is " << i << ".";
+                    cout << "Result is " << j << ".";
                 }
             }
             cout << endl;
