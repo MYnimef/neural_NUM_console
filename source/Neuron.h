@@ -5,8 +5,7 @@
 #include <cmath>
 #include <ctime>
 
-class Neuron
-{
+class Neuron {
 public:
     size_t linesNum, columnsNum;
     double** weights;
