@@ -148,6 +148,7 @@
     <ClCompile Include="source\main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="source\Neuron.cpp" />
     <ClCompile Include="source\ohMy.cpp" />
     <ClCompile Include="source\picture.cpp" />
     <ClCompile Include="source\weights.cpp">

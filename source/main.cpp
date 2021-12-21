@@ -22,7 +22,7 @@ int main() {
     cout << "This is the neural network that makes digit recognition." << endl
          << "Used lodepng libraries for PNG decode" << endl;
 
-    size_t trainSet = 60000;    //Number of train sets (for learning).
+    size_t trainSet = 1000;    //Number of train sets (for learning).
     size_t inputNum = 784, outputNum = 10; //Number of input and output values.
     size_t hiddenLayersAmount = 2;  //Number of hidden layers.
     size_t neuronNum[] = { inputNum, 200, 50, outputNum };    //Number of neurons in each layer.

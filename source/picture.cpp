@@ -17,12 +17,12 @@ void setTrainInOut(size_t trainSet, double** input, double** output)
         while (flag) 
         {
             flag = decodeOneStep(input[i], fileName);
-            fileName[19]++;
+            fileName[16]++;
             sup++;
         }
         output[i][sup - 1] = 1;
-        fileName[19] = '0';
-        count(14, fileName);
+        fileName[16] = '0';
+        count(11, fileName);
     }
 }
 
