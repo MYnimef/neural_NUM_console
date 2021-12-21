@@ -1,2 +1,0 @@
-A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\x64\Debug\neuralNum.exe
-A:\Coding\Cpp\Git\neural_NUM_console\neuralNum\x64\Debug\neuralNum.pdb
