@@ -141,22 +141,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="learning.cpp">
+    <ClCompile Include="source\learning.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="lodepng.cpp" />
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="source\lodepng.cpp" />
+    <ClCompile Include="source\main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="ohMy.cpp" />
-    <ClCompile Include="picture.cpp" />
-    <ClCompile Include="weights.cpp">
+    <ClCompile Include="source\ohMy.cpp" />
+    <ClCompile Include="source\picture.cpp" />
+    <ClCompile Include="source\weights.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lodepng.h" />
-    <ClInclude Include="Neuron.h" />
+    <ClInclude Include="source\lodepng.h" />
+    <ClInclude Include="source\Neuron.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
